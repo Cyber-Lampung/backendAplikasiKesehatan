@@ -6,6 +6,7 @@ import checkEmail from "../utils/checkEmail.js";
 import validasiInputan from "../utils/validasiInputan.js";
 import CreateUser from "../model/query/CreateAcount.js";
 import CheckUserInDb from "../model/query/DeleteUser.js";
+import UpdateUser from "../model/query/UpdateUser.js";
 
 router.use(auth);
 router.use(express.json());
@@ -44,8 +45,12 @@ router.post("/user/create", async (req, res, next) => {
 });
 
 // user edit profile
-router.put("/user/:id", (req, res) => {
-  res.send("post okee");
+router.put("/user/put/users", (req, res) => {
+  // ambil userId dari inputan user / dari data lama
+
+  const { email, username, password } = req.body;
+
+  UpdateUser(req, res, email, username, password);
 });
 
 router.delete("/user/delete/:id", (req, res) => {
