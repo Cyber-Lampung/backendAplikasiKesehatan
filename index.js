@@ -29,10 +29,13 @@ async () => {
 // import UserRouter
 
 import UserRoutes from "./src/routes/UserRoutes.js";
+import Token from "./src/routes/ServiceToken.js";
 
 // user Routes
+app.use("/token", Token);
 
 app.use("/users", UserRoutes);
+// VerifyToken
 
 // listen port
 

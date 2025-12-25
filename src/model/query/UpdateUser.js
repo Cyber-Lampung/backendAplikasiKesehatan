@@ -1,39 +1,60 @@
+import bcrypt from "bcrypt";
+import * as dotenv from "dotenv";
 import database from "../db/database.js";
+import GeneratePassword from "../../utils/GeneratePassword.js";
 
+// dotenv config
+dotenv.config();
+
+// function updata user
 const UpdateUser = async (req, res, email, username, password) => {
-  // code here
+  // next code sekarang istirahat dulu : 21.40 => done
 
-  const [rows] = await database.query("select * from Staging");
+  // penyimapanan informasi user untuk diupdate ke database
+  const fields = [];
+  const values = [];
 
-  const user = rows.map((users) => {
-    return users.sessionUser;
-  });
+  // validasi inputan user untuk disimpan ke database
 
-  // check headers token
-  if (!req.headers.tokenuser) {
-    res
-      .status(401)
-      .json({ message: "invalid access this path missing token", status: 401 });
+  // untuk email update
+  if (!email) {
+    fields.push("?");
+    values.push("dasdd@gmail.com");
+  } else {
+    fields.push("?");
+    values.push(email);
   }
 
-  // ambil data sessionUser for update data user
-  const checkSession = user.find((session) => {
-    return session === req.headers.tokenuser;
-  });
+  // untuk username update
 
-  // check session apakah ketemu
-  if (!checkSession) {
-    res.status(401).json({ message: "invalid token error system" });
+  if (!username) {
+    fields.push("?");
+    values.push("asdasd");
+  } else {
+    fields.push("?");
+    values.push(username);
   }
 
-  // check dari session apakah user ada dalam database
+  // hash password jika user update password
+  const HashPasswordBaru = await GeneratePassword(password);
+  // untuk update password => comming soon fiture
 
-  const [getUser] = await database.query(
-    "select * from Staging where sessionUser = ?",
-    [req.headers.tokenuser]
-  );
+  if (!password) {
+    fields.push("?");
+    values.push("asdasd");
+  } else {
+    fields.push("?");
+    values.push(HashPasswordBaru);
+  }
 
-  // next code sekarang istirahat dulu : 21.40
+  // push juga untuk search id didatabase
+
+  fields.push("?");
+  values.push(req.headers.userid);
+
+  // check isi penyipanan data di local
+
+  console.log(fields.join(","), values.join(","));
 };
 
 export default UpdateUser;

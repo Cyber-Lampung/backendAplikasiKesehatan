@@ -1,9 +1,20 @@
+import checkTokenVerif from "../../middleware/checkTokenVerif.js";
 import CreateSession from "../../service/CreateSession.js";
 import GeneratePassword from "../../utils/GeneratePassword.js";
 import database from "../db/database.js";
 import { v4 as uuidv4 } from "uuid";
 
 const CreateUser = async (res, email, username, password) => {
+  // check verify Token terlebih dahulu
+
+  const check = checkTokenVerif(email);
+
+  if (check) {
+    return res.json({ message: "okee bisa lek" });
+  } else {
+    return res.json({ message: "waduh bahaya lek" });
+  }
+
   // Create UserId
 
   const userId = uuidv4();
@@ -35,21 +46,21 @@ const CreateUser = async (res, email, username, password) => {
 
   //   // code SQL
 
-  const sqlQuery =
-    "insert into Staging (userId, email, username, password, sessionId, sessionUser) values (?, ?, ?, ?, ?, ?)";
-  const [result, err] = await database.query(sqlQuery, [
-    userId,
-    email,
-    username,
-    hashPassword,
-    SessionId,
-    SessionUser,
-  ]);
-  if (result.affectedRows > 0) {
-    return res
-      .status(201)
-      .json({ status: 201, message: "berhail create user" });
-  }
+  // const sqlQuery =
+  //   "insert into Staging (userId, email, username, password, sessionId, sessionUser) values (?, ?, ?, ?, ?, ?)";
+  // const [result, err] = await database.query(sqlQuery, [
+  //   userId,
+  //   email,
+  //   username,
+  //   hashPassword,
+  //   SessionId,
+  //   SessionUser,
+  // ]);
+  // if (result.affectedRows > 0) {
+  //   return res
+  //     .status(201)
+  //     .json({ status: 201, message: "berhail create user" });
+  // }
 };
 
 export default CreateUser;
