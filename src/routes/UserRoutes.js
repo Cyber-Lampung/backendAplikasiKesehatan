@@ -11,9 +11,9 @@ import ResetPassword from "../model/query/ResetPassword.js";
 import CheckTokenResetPassword from "../middleware/checkTokenFroResetPassword.js";
 import MitigasiSqlCheck from "../middleware/MitigasiSql.js";
 import LoginAccount from "../model/query/LoginAccount.js";
-import checkTokenVerif from "../middleware/checkTokenVerif.js";
-import saveToken from "../service/SaveTokenverifInDatabase.js";
-import SendEmailToken from "../service/SendEmailToken.js";
+// import checkTokenVerif from "../middleware/checkTokenVerif.js";
+// import saveToken from "../service/SaveTokenverifInDatabase.js";
+// import SendEmailToken from "../service/SendEmailToken.js";
 
 router.use(express.json());
 
@@ -41,22 +41,9 @@ router.use("/user/create", async (req, res, next) => {
   // get information user from req.body
   const { email, username, password, tokenVerify } = req.body;
 
-  // kirim token ke email
+  const createAcountNew = CreateUser(res, email, username, password);
 
-  SendEmailToken(res, email);
-
-  // // buat token di database
-
-  // // kirim token verifikasi ke /verif-token
-
-  // const response = await fetch("http://localhost:3000/token/verify-token", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json", barer: "aku" },
-  //   body: JSON.stringify({ email: email, token: tokenVerify }),
-  // });
-
-  // const result = await response.json();
-  // console.log(result);
+  console.log(createAcountNew);
 });
 
 // Login Account

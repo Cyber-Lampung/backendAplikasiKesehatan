@@ -19,7 +19,7 @@ export default function CreateSession(userId, email, username, password) {
     //   create session menggunakan jsonwebtoken
 
     const ResultSessionUser = jwt.sign(payload, SecretKey, {
-      algorithm: "none",
+      algorithm: "RS256",
     });
 
     return ResultSessionUser;

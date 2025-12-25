@@ -5,15 +5,9 @@ import database from "../db/database.js";
 import { v4 as uuidv4 } from "uuid";
 
 const CreateUser = async (res, email, username, password) => {
-  // check verify Token terlebih dahulu
+  // default isVerified
 
-  const check = checkTokenVerif(email);
-
-  if (check) {
-    return res.json({ message: "okee bisa lek" });
-  } else {
-    return res.json({ message: "waduh bahaya lek" });
-  }
+  const isVerified = false;
 
   // Create UserId
 
@@ -29,7 +23,8 @@ const CreateUser = async (res, email, username, password) => {
     userId,
     email,
     username,
-    password
+    password,
+    isVerified
   );
 
   //   get function Service Create Sessionuser
