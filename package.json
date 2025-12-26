@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "staging": "nodemon ./src/index.js",
-    "build": "nodemon ./src/index.js",
+    "dev": "nodemon index.js",
+    "staging": "nodemon index.js",
+    "build": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
