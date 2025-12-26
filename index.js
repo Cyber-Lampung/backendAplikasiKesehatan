@@ -4,7 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import * as dotenv from "dotenv";
 dotenv.config();
-import database from "./model/db/database.js";
+import database from "./src/model/db/database.js";
 import rateLimit from "express-rate-limit";
 
 const limitRequest = rateLimit({
@@ -35,9 +35,9 @@ async () => {
 
 // import UserRouter
 
-import UserRoutes from "./routes/UserRoutes.js";
-import Token from "./routes/ServiceToken.js";
-import RouteAi from "./routes/AiRoutes.js";
+import UserRoutes from "./src/routes/UserRoutes.js";
+import Token from "./src/routes/ServiceToken.js";
+import RouteAi from "./src/routes/AiRoutes.js";
 
 // user Routes
 app.use("/users", UserRoutes);
